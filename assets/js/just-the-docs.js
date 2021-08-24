@@ -91,6 +91,24 @@ function initSearch() {
   request.send();
 }
 
+function scrollByQuery(query) {
+  var params = new URLSearchParams(query);
+  var queryKey = params.get("q");
+  if (queryKey !== null && queryKey.length > 2) {
+    var aTags = document.querySelectorAll("p,h1,h2,h3,h4,h5,h6,h7,a");
+    // document.getElementsByTagName("p");
+    //var searchText = "SearchingText";
+    //var found;
+
+    for (var i = 0; i < aTags.length; i++) {
+      if (aTags[i].textContent.indexOf(queryKey) >= 0) {
+        aTags[i].scrollIntoView();
+        break;
+      }
+    }
+  }
+}
+
 function searchLoaded(index, docs) {
   var index = index;
   var docs = docs;
@@ -443,6 +461,7 @@ jtd.setTheme = function(theme) {
 jtd.onReady(function(){
   initNav();
   initSearch();
+  scrollByQuery(window.location.search);
 });
 
 })(window.jtd = window.jtd || {});
