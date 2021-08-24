@@ -99,10 +99,14 @@ function scrollByQuery(query) {
     // document.getElementsByTagName("p");
     //var searchText = "SearchingText";
     //var found;
-
+    var idx;
     for (var i = 0; i < aTags.length; i++) {
-      if (aTags[i].textContent.indexOf(queryKey) >= 0) {
-        aTags[i].scrollIntoView();
+      if ((idx = aTags[i].textContent.indexOf(queryKey)) >= 0) {
+        var theTag = aTags[i];
+        theTag.scrollIntoView();
+        theTag.innerHTML = theTag.innerHTML.replace(
+          new RegExp(queryKey + '[^ ]*'), (match) => '<span class="label-yellow">' + match + '</span>'
+        );
         break;
       }
     }
