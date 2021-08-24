@@ -58,7 +58,7 @@ function initSearch() {
   request.onload = function(){
     if (request.status >= 200 && request.status < 400) {
       var docs = JSON.parse(request.responseText);
-      
+
       lunr.tokenizer.separator = /[\s/]+/
 
       var index = lunr(function(){
@@ -190,7 +190,12 @@ function searchLoaded(index, docs) {
 
       var resultLink = document.createElement('a');
       resultLink.classList.add('search-result');
-      resultLink.setAttribute('href', doc.url);
+      var queryUrl = doc.url;
+      var matchedKeys = Object.keys(result.matchData.metadata);
+      if (matchedKeys.length) {
+        queryUrl += '?q=' + matchedKeys[0];
+      }
+      resultLink.setAttribute('href', queryUrl);
       resultsListItem.appendChild(resultLink);
 
       var resultTitle = document.createElement('div');
@@ -441,5 +446,3 @@ jtd.onReady(function(){
 });
 
 })(window.jtd = window.jtd || {});
-
-
