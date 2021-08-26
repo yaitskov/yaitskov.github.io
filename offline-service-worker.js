@@ -1,16 +1,18 @@
 self.addEventListener("fetch", (event) => {
-  console.log("Service Worker Fetch event " + event);
+  console.log("Service Worker Fetch event " + event.request.url);
   event.respondWith(
-    caches.open("cache1").match(event.request, {ignoreSearch: true}).then(response => {
-      if (response) {
-        console.log("Found in cache: " + event.request.url);
-        return response;
-      } else {
-        console.log("Network request: " + event.request.url);
-        return fetch(event.request);
-      }
-    })
-  );
+    caches.open("cache1").then(
+      cache => cache.match(event.request, {ignoreSearch: true}).then(
+        response => {
+          if (response) {
+            console.log("Found in cache: " + event.request.url);
+            return response;
+          } else {
+            console.log("Network request: " + event.request.url);
+            return fetch(event.request);
+          }
+        }))
+    );
 });
 
 self.addEventListener('install', (event) => {
