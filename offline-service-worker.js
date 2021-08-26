@@ -1,7 +1,7 @@
 self.addEventListener("fetch", (event) => {
   console.log("Service Worker Fetch event " + event);
   event.respondWith(
-    caches.match(event.request).then(response => {
+    caches.open("cache1").match(event.request, {ignoreSearch: true}).then(response => {
       if (response) {
         console.log("Found in cache: " + event.request.url);
         return response;
