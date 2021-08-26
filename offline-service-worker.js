@@ -9,14 +9,12 @@ self.addEventListener("fetch", (event) => {
             return response;
           } else {
             console.log("Network request: " + event.request.url);
-            try {
-              var serverResp = await fetch(event.request);
-              return serverResp;
-            } catch (e) {
-              console.log("Offline fallback with 404", e);
-              var resp404 = await cache.match("/404.html");
-              return resp404;
-            }
+            return fetch(event.request).then(
+              ok => ok,
+              (e) => {
+                console.log("Offline fallback with 404", e);
+                return cache.match("/404.html");
+              });
           }
         }))
     );
