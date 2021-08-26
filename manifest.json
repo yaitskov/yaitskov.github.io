@@ -7,12 +7,12 @@
   "orientation": "landscape",
   "icons": [
     {
-      "src": "https://soostone.github.io/assets/image/touch-icon/logo-70.png",
+      "src": "https://soostone.github.io/assets/images/touch-icon/logo-70.png",
       "type": "image/png",
       "sizes": "70x70"
     },
     {
-      "src": "https://soostone.github.io/assets/image/touch-icon/logo-196.png",
+      "src": "https://soostone.github.io/assets/images/touch-icon/logo-196.png",
       "type": "image/png",
       "sizes": "196x196"
     }
