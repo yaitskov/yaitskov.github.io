@@ -53,13 +53,13 @@ function initNav() {
 
 function initSearch() {
   var request = new XMLHttpRequest();
-  request.open('GET', '/assets/js/search-data.json', true);
+  request.open('GET', 'https://soostone.github.io/assets/js/search-data.json', true);
 
   request.onload = function(){
     if (request.status >= 200 && request.status < 400) {
       var docs = JSON.parse(request.responseText);
 
-      lunr.tokenizer.separator = /[\s/]+/
+      lunr.tokenizer.separator = /[\s\-/]+/
 
       var index = lunr(function(){
         this.ref('id');
@@ -91,22 +91,53 @@ function initSearch() {
   request.send();
 }
 
+// just innerHtml.replace breaks page,
+// because Html node attributes could be matched
+function replaceTextNodes(root, regex, onMatchFun) {
+  var children = root.childNodes;
+  if (children.length) {
+    for (var i = 0; i < children.length; ++i) {
+      var updated = replaceTextNodes(children[i], regex, onMatchFun);
+      if (updated) {
+        root.replaceChild(updated, children[i]);
+      }
+    }
+  } else {
+    if (root.textContent) {
+      var updatedText = root.textContent.replace(regex, onMatchFun);
+      if (updatedText != root.textContent) {
+        var span = document.createElement("span");
+        span.innerHTML = updatedText;
+        return span;
+      }
+    }
+  }
+  return null;
+}
+
 function scrollByQuery(query) {
   var params = new URLSearchParams(query);
   var queryKey = params.get("q");
   if (queryKey !== null && queryKey.length > 2) {
-    var aTags = document.querySelectorAll("p,h1,h2,h3,h4,h5,h6,h7,a");
-    // document.getElementsByTagName("p");
-    //var searchText = "SearchingText";
-    //var found;
+    var lQueryKey = queryKey.toLowerCase();
+    var mainDiv = document.getElementById("main-content-wrap");
+    var aTags = mainDiv.querySelectorAll("p,h1,h2,h3,h4,h5,h6,h7,a,li,span,pre");
+    // var aTags = document.querySelectorAll("h2");
     var idx;
     for (var i = 0; i < aTags.length; i++) {
-      if ((idx = aTags[i].textContent.indexOf(queryKey)) >= 0) {
+      if ((idx = aTags[i].textContent.toLowerCase().indexOf(lQueryKey)) >= 0) {
         var theTag = aTags[i];
         theTag.scrollIntoView();
-        theTag.innerHTML = theTag.innerHTML.replace(
-          new RegExp(queryKey + '[^ ]*'), (match) => '<span class="label-yellow">' + match + '</span>'
-        );
+        replaceTextNodes(theTag, new RegExp(queryKey, 'gi'),
+          (match) => {
+            return '<span class="label-yellow">' + match + '</span>';
+          });
+        // theTag.innerHTML = theTag.innerHTML.replace(
+        //   new RegExp(queryKey, 'gi'),
+        //   function (match) {
+        //     return '<span class="label-yellow">' + match + '</span>';
+        //   }
+        // );
         break;
       }
     }
@@ -263,7 +294,7 @@ function searchLoaded(index, docs) {
             var previewEnd = position[0] + position[1];
             var ellipsesBefore = true;
             var ellipsesAfter = true;
-            for (var k = 0; k < 3; k++) {
+            for (var k = 0; k < 5; k++) {
               var nextSpace = doc.content.lastIndexOf(' ', previewStart - 2);
               var nextDot = doc.content.lastIndexOf('. ', previewStart - 2);
               if ((nextDot >= 0) && (nextDot > nextSpace)) {
@@ -278,7 +309,7 @@ function searchLoaded(index, docs) {
               }
               previewStart = nextSpace + 1;
             }
-            for (var k = 0; k < 3; k++) {
+            for (var k = 0; k < 10; k++) {
               var nextSpace = doc.content.indexOf(' ', previewEnd + 1);
               var nextDot = doc.content.indexOf('. ', previewEnd + 1);
               if ((nextDot >= 0) && (nextDot < nextSpace)) {
@@ -338,7 +369,7 @@ function searchLoaded(index, docs) {
         resultLink.appendChild(resultPreviews);
 
         var content = doc.content;
-        for (var j = 0; j < Math.min(previewPositions.length, 2); j++) {
+        for (var j = 0; j < Math.min(previewPositions.length, 3); j++) {
           var position = previewPositions[j];
 
           var resultPreview = document.createElement('div');
@@ -457,7 +488,7 @@ jtd.getTheme = function() {
 
 jtd.setTheme = function(theme) {
   var cssFile = document.querySelector('[rel="stylesheet"]');
-  cssFile.setAttribute('href', '/assets/css/just-the-docs-' + theme + '.css');
+  cssFile.setAttribute('href', 'https://soostone.github.io/assets/css/just-the-docs-' + theme + '.css');
 }
 
 // Document ready
@@ -469,3 +500,5 @@ jtd.onReady(function(){
 });
 
 })(window.jtd = window.jtd || {});
+
+
