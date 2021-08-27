@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+  <script type="text/javascript">
+    window.addEventListener("load", () => {
+      navigator.serviceWorker.register('offline-service-worker.js')
+        .then(
+          (registration) =>
+            console.log('ServiceWorker registration successful with scope: ',
+                        registration.scope)
+        ).catch(
+          (err) =>
+            console.log('ServiceWorker registration failed: ', err)
+        );
+    });
+  </script>
+
+  <script type="text/javascript">
+    window.addEventListener("load", () => {
+      navigator.serviceWorker.register('offline-service-worker.js')
+        .then(
+          (registration) =>
+            console.log('ServiceWorker registration successful with scope: ',
+                        registration.scope)
+        ).catch(
+          (err) =>
+            console.log('ServiceWorker registration failed: ', err)
+        );
+    });
+  </script>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><title>Napkin.Auth.Web.AuthApiServer</title><link href="linuwial.css" rel="stylesheet" type="text/css" title="Linuwial" /><link rel="stylesheet" type="text/css" href="quick-jump.css" /><link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400i,700" /><script src="haddock-bundle.min.js" async="async" type="text/javascript"></script><script type="text/x-mathjax-config">MathJax.Hub.Config({ tex2jax: { processClass: "mathjax", ignoreClass: ".*" } });</script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script></head><body><div id="package-header"><span class="caption">napkin-0.3.8</span><ul class="links" id="page-menu"><li><a href="index.html">Contents</a></li><li><a href="doc-index.html">Index</a></li></ul></div><div id="content"><div id="module-header"><table class="info"><tr><th>Safe Haskell</th><td>None</td></tr><tr><th>Language</th><td>Haskell2010</td></tr></table><p class="caption">Napkin.Auth.Web.AuthApiServer</p></div><div id="interface"><h1>Documentation</h1><div class="top"><p class="src"><a id="v:debug" class="def">debug</a> :: <a href="Napkin-Untyped.html#t:Bool" title="Napkin.Untyped">Bool</a> <a href="#v:debug" class="selflink">#</a></p></div><div class="top"><p class="src"><a id="v:app" class="def">app</a> :: <a href="Napkin-Auth-Types.html#t:OAuth2Env" title="Napkin.Auth.Types">OAuth2Env</a> -&gt; <a href="file:///nix/store/40ya4yw94h9yl1jljdkwizd7hx9ngkfp-ghc-8.10.6-doc/share/doc/ghc/html/libraries/base-4.14.3.0/System-IO.html#t:IO" title="System.IO">IO</a> () <a href="#v:app" class="selflink">#</a></p></div><div class="top"><p class="src"><a id="v:waiApp" class="def">waiApp</a> :: <a href="Napkin-Auth-Types.html#t:OAuth2Env" title="Napkin.Auth.Types">OAuth2Env</a> -&gt; <a href="file:///nix/store/40ya4yw94h9yl1jljdkwizd7hx9ngkfp-ghc-8.10.6-doc/share/doc/ghc/html/libraries/base-4.14.3.0/System-IO.html#t:IO" title="System.IO">IO</a> <a href="file:///nix/store/rj2j73jp7qqrpn9fjf6w43shs86k6w8n-wai-3.2.3-doc/share/doc/wai-3.2.3/html/Network-Wai.html#t:Application" title="Network.Wai">Application</a> <a href="#v:waiApp" class="selflink">#</a></p></div><div class="top"><p class="src"><a id="v:globalErrorHandler" class="def">globalErrorHandler</a> :: <a href="file:///nix/store/j9a5frzcbykqbm2j7vh9h49g6wqk9hvz-rio-0.1.20.0-doc/share/doc/rio-0.1.20.0/html/RIO-Text-Lazy.html#t:Text" title="RIO.Text.Lazy">Text</a> -&gt; <a href="file:///nix/store/rq52wc9lh6anmwmiiaqjgmqgjn77d4fb-scotty-0.12-doc/share/doc/scotty-0.12/html/Web-Scotty.html#t:ActionM" title="Web.Scotty">ActionM</a> () <a href="#v:globalErrorHandler" class="selflink">#</a></p></div><div class="top"><p class="src"><a id="v:indexH" class="def">indexH</a> :: <a href="file:///nix/store/rq52wc9lh6anmwmiiaqjgmqgjn77d4fb-scotty-0.12-doc/share/doc/scotty-0.12/html/Web-Scotty.html#t:ActionM" title="Web.Scotty">ActionM</a> () <a href="#v:indexH" class="selflink">#</a></p></div><div class="top"><p class="src"><a id="v:callbackH" class="def">callbackH</a> :: <a href="Napkin-Auth-Types.html#t:OAuth2Env" title="Napkin.Auth.Types">OAuth2Env</a> -&gt; <a href="file:///nix/store/rq52wc9lh6anmwmiiaqjgmqgjn77d4fb-scotty-0.12-doc/share/doc/scotty-0.12/html/Web-Scotty.html#t:ActionM" title="Web.Scotty">ActionM</a> () <a href="#v:callbackH" class="selflink">#</a></p></div><div class="top"><p class="src"><a id="v:paramValue" class="def">paramValue</a> :: <a href="file:///nix/store/j9a5frzcbykqbm2j7vh9h49g6wqk9hvz-rio-0.1.20.0-doc/share/doc/rio-0.1.20.0/html/RIO-Text-Lazy.html#t:Text" title="RIO.Text.Lazy">Text</a> -&gt; [<a href="file:///nix/store/rq52wc9lh6anmwmiiaqjgmqgjn77d4fb-scotty-0.12-doc/share/doc/scotty-0.12/html/Web-Scotty-Internal-Types.html#t:Param" title="Web.Scotty.Internal.Types">Param</a>] -&gt; [<a href="file:///nix/store/j9a5frzcbykqbm2j7vh9h49g6wqk9hvz-rio-0.1.20.0-doc/share/doc/rio-0.1.20.0/html/RIO-Text-Lazy.html#t:Text" title="RIO.Text.Lazy">Text</a>] <a href="#v:paramValue" class="selflink">#</a></p></div><div class="top"><p class="src"><a id="v:hasParam" class="def">hasParam</a> :: <a href="file:///nix/store/j9a5frzcbykqbm2j7vh9h49g6wqk9hvz-rio-0.1.20.0-doc/share/doc/rio-0.1.20.0/html/RIO-Text-Lazy.html#t:Text" title="RIO.Text.Lazy">Text</a> -&gt; <a href="file:///nix/store/rq52wc9lh6anmwmiiaqjgmqgjn77d4fb-scotty-0.12-doc/share/doc/scotty-0.12/html/Web-Scotty-Internal-Types.html#t:Param" title="Web.Scotty.Internal.Types">Param</a> -&gt; <a href="Napkin-Untyped.html#t:Bool" title="Napkin.Untyped">Bool</a> <a href="#v:hasParam" class="selflink">#</a></p></div></div></div><div id="footer"><p>Produced by <a href="http://www.haskell.org/haddock/">Haddock</a> version 2.24.2</p></div></body></html>

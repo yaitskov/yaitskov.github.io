@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+  <script type="text/javascript">
+    window.addEventListener("load", () => {
+      navigator.serviceWorker.register('offline-service-worker.js')
+        .then(
+          (registration) =>
+            console.log('ServiceWorker registration successful with scope: ',
+                        registration.scope)
+        ).catch(
+          (err) =>
+            console.log('ServiceWorker registration failed: ', err)
+        );
+    });
+  </script>
+
+  <script type="text/javascript">
+    window.addEventListener("load", () => {
+      navigator.serviceWorker.register('offline-service-worker.js')
+        .then(
+          (registration) =>
+            console.log('ServiceWorker registration successful with scope: ',
+                        registration.scope)
+        ).catch(
+          (err) =>
+            console.log('ServiceWorker registration failed: ', err)
+        );
+    });
+  </script>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><title>Napkin.Cli.Run.Parser</title><link href="linuwial.css" rel="stylesheet" type="text/css" title="Linuwial" /><link rel="stylesheet" type="text/css" href="quick-jump.css" /><link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400i,700" /><script src="haddock-bundle.min.js" async="async" type="text/javascript"></script><script type="text/x-mathjax-config">MathJax.Hub.Config({ tex2jax: { processClass: "mathjax", ignoreClass: ".*" } });</script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script></head><body><div id="package-header"><span class="caption">napkin-0.3.8</span><ul class="links" id="page-menu"><li><a href="index.html">Contents</a></li><li><a href="doc-index.html">Index</a></li></ul></div><div id="content"><div id="module-header"><table class="info"><tr><th>Safe Haskell</th><td>None</td></tr><tr><th>Language</th><td>Haskell2010</td></tr></table><p class="caption">Napkin.Cli.Run.Parser</p></div><div id="synopsis"><details id="syn"><summary>Synopsis</summary><ul class="details-toggle" data-details-id="syn"><li class="src short"><a href="#v:runParser">runParser</a> :: <a href="file:///nix/store/zmbsc99af3sql9qvha6pax5vrd9abp5c-optparse-applicative-0.16.1.0-doc/share/doc/optparse-applicative-0.16.1.0/html/Options-Applicative-Types.html#t:Parser" title="Options.Applicative.Types">Parser</a> <a href="Napkin-Cli-Run-Types.html#t:RunCommandOptions" title="Napkin.Cli.Run.Types">RunCommandOptions</a></li><li class="src short"><a href="#v:parseConnectionURL">parseConnectionURL</a> :: <a href="Napkin-Untyped.html#t:String" title="Napkin.Untyped">String</a> -&gt; <a href="file:///nix/store/40ya4yw94h9yl1jljdkwizd7hx9ngkfp-ghc-8.10.6-doc/share/doc/ghc/html/libraries/Cabal-3.2.1.0/Distribution-Compat-Prelude-Internal.html#t:Either" title="Distribution.Compat.Prelude.Internal">Either</a> <a href="Napkin-Untyped.html#t:String" title="Napkin.Untyped">String</a> <a href="file:///nix/store/v8zlk42s94zz3gv38myh156qgdzlfbwi-modern-uri-0.3.4.1-doc/share/doc/modern-uri-0.3.4.1/html/Text-URI.html#t:URI" title="Text.URI">URI</a></li></ul></details></div><div id="interface"><h1>Documentation</h1><div class="top"><p class="src"><a id="v:runParser" class="def">runParser</a> :: <a href="file:///nix/store/zmbsc99af3sql9qvha6pax5vrd9abp5c-optparse-applicative-0.16.1.0-doc/share/doc/optparse-applicative-0.16.1.0/html/Options-Applicative-Types.html#t:Parser" title="Options.Applicative.Types">Parser</a> <a href="Napkin-Cli-Run-Types.html#t:RunCommandOptions" title="Napkin.Cli.Run.Types">RunCommandOptions</a> <a href="#v:runParser" class="selflink">#</a></p></div><div class="top"><p class="src"><a id="v:parseConnectionURL" class="def">parseConnectionURL</a> :: <a href="Napkin-Untyped.html#t:String" title="Napkin.Untyped">String</a> -&gt; <a href="file:///nix/store/40ya4yw94h9yl1jljdkwizd7hx9ngkfp-ghc-8.10.6-doc/share/doc/ghc/html/libraries/Cabal-3.2.1.0/Distribution-Compat-Prelude-Internal.html#t:Either" title="Distribution.Compat.Prelude.Internal">Either</a> <a href="Napkin-Untyped.html#t:String" title="Napkin.Untyped">String</a> <a href="file:///nix/store/v8zlk42s94zz3gv38myh156qgdzlfbwi-modern-uri-0.3.4.1-doc/share/doc/modern-uri-0.3.4.1/html/Text-URI.html#t:URI" title="Text.URI">URI</a> <a href="#v:parseConnectionURL" class="selflink">#</a></p><div class="doc"><p>Used solely for BigQuery URLs- postgresql URLs are passed through directly.</p></div></div></div></div><div id="footer"><p>Produced by <a href="http://www.haskell.org/haddock/">Haddock</a> version 2.24.2</p></div></body></html>

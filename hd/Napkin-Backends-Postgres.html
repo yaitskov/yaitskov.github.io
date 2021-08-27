@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+  <script type="text/javascript">
+    window.addEventListener("load", () => {
+      navigator.serviceWorker.register('offline-service-worker.js')
+        .then(
+          (registration) =>
+            console.log('ServiceWorker registration successful with scope: ',
+                        registration.scope)
+        ).catch(
+          (err) =>
+            console.log('ServiceWorker registration failed: ', err)
+        );
+    });
+  </script>
+
+  <script type="text/javascript">
+    window.addEventListener("load", () => {
+      navigator.serviceWorker.register('offline-service-worker.js')
+        .then(
+          (registration) =>
+            console.log('ServiceWorker registration successful with scope: ',
+                        registration.scope)
+        ).catch(
+          (err) =>
+            console.log('ServiceWorker registration failed: ', err)
+        );
+    });
+  </script>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><title>Napkin.Backends.Postgres</title><link href="linuwial.css" rel="stylesheet" type="text/css" title="Linuwial" /><link rel="stylesheet" type="text/css" href="quick-jump.css" /><link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400i,700" /><script src="haddock-bundle.min.js" async="async" type="text/javascript"></script><script type="text/x-mathjax-config">MathJax.Hub.Config({ tex2jax: { processClass: "mathjax", ignoreClass: ".*" } });</script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script></head><body><div id="package-header"><span class="caption">napkin-0.3.8</span><ul class="links" id="page-menu"><li><a href="index.html">Contents</a></li><li><a href="doc-index.html">Index</a></li></ul></div><div id="content"><div id="module-header"><table class="info"><tr><th>Safe Haskell</th><td>None</td></tr><tr><th>Language</th><td>Haskell2010</td></tr></table><p class="caption">Napkin.Backends.Postgres</p></div><div id="table-of-contents"><div id="contents-list"><p class="caption" onclick="window.scrollTo(0,0)">Contents</p><ul><li><a href="#g:1">Postgres backend, in one place</a></li><li><a href="#g:2">Run typeclasses, re-exported for convenience</a></li><li><a href="#g:3">Higher level functions, re-exported for convenience</a></li><li><a href="#g:4">Base napkin types, re-exported for convenience</a></li></ul></div></div><div id="description"><p class="caption">Description</p><div class="doc"><p>Single point of entry for using napkin with the Postgres backend.</p></div></div><div id="synopsis"><details id="syn"><summary>Synopsis</summary><ul class="details-toggle" data-details-id="syn"><li class="src short">module <a href="Napkin-Types-Postgres.html">Napkin.Types.Postgres</a></li><li class="src short">module <a href="Napkin-Run-Postgres.html">Napkin.Run.Postgres</a></li><li class="src short">module <a href="Napkin-Run-Base.html">Napkin.Run.Base</a></li><li class="src short">module <a href="Napkin-Run-Commands.html">Napkin.Run.Commands</a></li><li class="src short">module <a href="Napkin-Run-Composite.html">Napkin.Run.Composite</a></li><li class="src short">module <a href="Napkin-Untyped.html">Napkin.Untyped</a></li><li class="src short">module <a href="Napkin-Untyped-Ops.html">Napkin.Untyped.Ops</a></li><li class="src short">module <a href="Napkin-Untyped-Ops-Redshift.html">Napkin.Untyped.Ops.Redshift</a></li></ul></details></div><div id="interface"><a href="#g:1" id="g:1"><h1>Postgres backend, in one place</h1></a><div class="top"><p class="src">module <a href="Napkin-Types-Postgres.html">Napkin.Types.Postgres</a></p></div><div class="top"><p class="src">module <a href="Napkin-Run-Postgres.html">Napkin.Run.Postgres</a></p></div><a href="#g:2" id="g:2"><h1>Run typeclasses, re-exported for convenience</h1></a><div class="top"><p class="src">module <a href="Napkin-Run-Base.html">Napkin.Run.Base</a></p></div><a href="#g:3" id="g:3"><h1>Higher level functions, re-exported for convenience</h1></a><div class="top"><p class="src">module <a href="Napkin-Run-Commands.html">Napkin.Run.Commands</a></p></div><div class="top"><p class="src">module <a href="Napkin-Run-Composite.html">Napkin.Run.Composite</a></p></div><a href="#g:4" id="g:4"><h1>Base napkin types, re-exported for convenience</h1></a><div class="top"><p class="src">module <a href="Napkin-Untyped.html">Napkin.Untyped</a></p></div><div class="top"><p class="src">module <a href="Napkin-Untyped-Ops.html">Napkin.Untyped.Ops</a></p></div><div class="top"><p class="src">module <a href="Napkin-Untyped-Ops-Redshift.html">Napkin.Untyped.Ops.Redshift</a></p></div></div></div><div id="footer"><p>Produced by <a href="http://www.haskell.org/haddock/">Haddock</a> version 2.24.2</p></div></body></html>

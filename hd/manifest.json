@@ -1,0 +1,11 @@
+{
+  "short_name": "Napkin-Haddocks",
+  "name": "Napkin Library API Haddocks",
+  "description": "Napkin Library API Haddocks",
+  "version": "0.1",
+  "display": "standalone",
+  "orientation": "landscape",
+  "icons": [],
+  "scope": ".",
+  "start_url": "./"
+}
