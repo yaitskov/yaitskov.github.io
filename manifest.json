@@ -1,0 +1,26 @@
+{
+  "short_name": "Napkin-Docs",
+  "name": "Napkin documentaion for data scientists",
+  "description": "Napkin tutorials and Haddocs API for data scientists and Haskell engineers",
+  "version": "0.1",
+  "display": "standalone",
+  "orientation": "landscape",
+  "icons": [
+    {
+      "src": "https://yaitskov.github.io/assets/images/touch-icon/logo-70.png",
+      "type": "image/png",
+      "sizes": "70x70"
+    },
+    {
+      "src": "https://yaitskov.github.io/assets/images/touch-icon/logo-196.png",
+      "type": "image/png",
+      "sizes": "196x196"
+    },
+    {
+      "src": "https://yaitskov.github.io/assets/images/touch-icon/logo-310.png",
+      "type": "image/png",
+      "sizes": "310x310"
+    }
+  ],
+  "start_url": "/"
+}
