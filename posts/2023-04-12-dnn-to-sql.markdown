@@ -1,0 +1,5 @@
+---
+title: DNN to SQL translation
+---
+
+AI becomes more and more accisible technology as time goes.
