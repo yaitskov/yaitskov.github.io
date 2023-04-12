@@ -2,4 +2,237 @@
 title: DNN to SQL translation
 ---
 
-AI becomes more and more accisible technology as time goes.
+AI becomes more and more accessible technology as time goes.  The
+topic in this blog post reminds me about the DOOM engineering
+challenge, when the popular FPS game is ported to all kinds of
+hardware (ATMs, oscilloscopes, DSLR etc), because the post shows a way
+to translate DNN, trained in PyTorch framework, into an SQL query.
+
+The idea to use DNN in SQL came out as a solution for the problem of
+classification text fields with high cardinality, such as mail
+address, into a few categories for building histograms, during
+exploratory data analysis in [napkin](https://www.napkin.run/)
+tool. With DNN in the form of SQL predicate there is no need to take
+data out of DB.
+
+## Training and preparing DNN model
+
+Let’s borrow NN, trained in [pima indian
+diabetes](https://machinelearningmastery.com/creating-a-training-loop-for-pytorch-models/)
+example for PyTorch. It is a simple NN with a few dense layers and
+ReLU/Sigmoid activation functions.
+
+The PyTorch model has following structure:
+
+    model = nn.Sequential(
+      nn.Linear(8, l1outs),
+      nn.ReLU(),
+      nn.Linear(l1outs, l2outs),
+      nn.ReLU(),
+      nn.Linear(l2outs, 1),
+      nn.Sigmoid())
+
+Weights of the trained model need to be extracted. PyTorch can persist
+the model as a binary file, but napkin is written in Haskell. So a
+conversion step is required. Export model weights into a JSON file:
+
+    from torch.utils.data import Dataset
+    from json import JSONEncoder
+
+    class EncodeTensor(JSONEncoder,Dataset):
+      def default(self, obj):
+        if isinstance(obj, torch.Tensor):
+          return obj.cpu().detach().numpy().tolist()
+        return super(NpEncoder, self).default(obj)
+
+    … model training
+
+    with open(“weights.json”, “w”) as mfh:
+      json.dump(model.state_dict(), mfh, cls=EncodeTensor)
+
+*weighs.json* has weights and biases, but activation functions are missing.
+
+#### File *InsertActivationFunctions.hs:*
+
+    #! /usr/bin/env nix-shell
+    #! nix-shell -i runghc -p "ghc.withPackages (ps:[ps.aeson ps.bytestring ps.vector])"
+
+    {-# LANGUAGE OverloadedStrings #-}
+    {-# LANGUAGE ScopedTypeVariables #-}
+
+    import Data.Aeson as A
+    import Data.Aeson.Key as A
+    import Data.Aeson.KeyMap as A
+    import Data.Bits (shiftL)
+    import Data.ByteString.Lazy as BSL
+    import Data.Maybe
+    import Data.Text as T
+    import Data.Vector as V
+    import Prelude
+    import System.Environment (getArgs)
+
+    include :: [Text] -> Value -> Value
+    include aFuns (Object weights) = go aFuns 0 []
+      where
+        layerIndex i
+          | i == (0 :: Int) = A.fromText "0"
+          | otherwise = A.fromText . T.pack . show $ (1 :: Int) `shiftL` i
+
+        lookupWeights i = A.lookup (layerIndex i <> ".weight") weights
+        go [] iLayer dnnLayers =
+          case lookupWeights iLayer of
+            Nothing -> Array . V.fromList . fmap Object $ Prelude.reverse dnnLayers
+            Just _ -> error $ "Number of layers is more than activation functions"
+        go (af:afs) iLayer dnnLayers =
+          case lookupWeights iLayer of
+            Nothing -> error $ "Number of layers is less than activation functions"
+            Just weightMatrix ->
+              let nl = A.fromList [
+                                    ("weights", weightMatrix),
+                                    ("biases", fromJust $ A.lookup (layerIndex iLayer <> ".bias") weights),
+                                    ("activation", String af)
+                                   ]
+              in go afs (iLayer + 1) (nl:dnnLayers)
+
+    main :: IO ()
+    main = do
+      aFuns <- getArgs
+      layers <- fromJust . A.decode' <$> BSL.readFile "weights.json"
+      A.encodeFile "model.json" (include (fmap T.pack aFuns) layers)
+
+Run the script:
+
+    $ chmod +x ./InsertActivationFunctions.hs && \
+      ./InsertActivationFunctions.hs ReLU ReLU Sigmoid
+
+File *model.json* describes the whole NN and it is ready to be included into a napkin spec.
+
+## Napkin installation
+
+[napkin](https://docs.napkin.run/install/) could be installed in
+multiple ways. One of them is docker. DNN feature is not merged into
+master, so a tag with commit must be specified.
+
+    $ docker run --rm --pull=always soostone/napkin-exe:v0.5.14-63f5f2b8 \
+      cat /bin/napkin-docker > ./napkin-docker && chmod +x ./napkin-docker
+
+napkin needs a spec file to run. The spec YAML file describes SQL
+queries, database to work with, etc.
+
+#### File *spec.yaml*:
+
+BigQuery and Posgres backends are supported by the feature. The spec
+below is for BigQuery. Some observatoins data are already inlined into
+the spec as a literal query *pima_observations*.
+
+    app_name: Classifies rows with embedded DNN
+    db_url: bigquery://bigquery.googleapis.com/project
+    backend: BigQuery
+    parser_dialect: napkin.bigquery
+    preprocessors:
+      - bigquery_defaults:
+          dataset: dnn_dataset
+      - define_dnn_macros:
+          dnns:
+            pima: model.json
+
+    tables:
+      pima_accuracy75:
+        create_action:
+          sql_query:
+            query: |
+              select errors, total, errors / total as ration from
+                (select
+                  (select count(*) from pima_false_positive)
+                  + (select count(*) from pima_true_negative) as errors,
+                  (select count(*) from pima_observations) as total) as x
+
+        post_hooks:
+          - assert_expression:
+              expression: 1.0 * errors / total < 0.26
+
+      pima_false_positive:
+        create_action:
+          sql_query:
+            query: |
+              select * from pima_positively_classified_by_dnn where expected_class < 1
+        post_hooks:
+          - assert_expression:
+              expression: count(*) > 0
+      pima_true_negative:
+        create_action:
+          sql_query:
+            query: |
+              select * from pima_negatively_classified_by_dnn where expected_class > 0
+        post_hooks:
+          - assert_expression:
+              expression: count(*) > 0
+      pima_positively_classified_by_dnn:
+        create_action:
+          sql_query:
+            query: |
+              select * from pima_observations
+              where pima(pregnant, glucose, pressure, skin,
+                         insulin, bmi, pedigree, age)[offset(0)] > 0.5
+      pima_negatively_classified_by_dnn:
+        create_action:
+          sql_query:
+            query: |
+              select * from pima_observations
+              where pima(pregnant, glucose, pressure, skin,
+                         insulin, bmi, pedigree, age)[offset(0)] < 0.5
+      pima_observations:
+        create_action:
+          sql_query:
+            # pregnant,  glucose, skin, insulin, bmi, pedigree, age
+            query: |
+              select rs[offset(0)] as pregnant,
+                     rs[offset(1)] as glucose,
+                     rs[offset(2)] as pressure,
+                     rs[offset(3)] as skin,
+                     rs[offset(4)] as insulin,
+                     rs[offset(5)] as bmi,
+                     rs[offset(6)] as pedigree,
+                     rs[offset(7)] as age,
+                     rs[offset(8)] as expected_class
+              from unnest([ struct(6,148,72,35,0,33.6,0.627,50,1),
+                            struct(1,85,66,29,0,26.6,0.351,31,0),
+                            struct(8,183,64,0,0,23.3,0.672,32,1),
+                            struct(1,89,66,23,94,28.1,0.167,21,0),
+                            struct(0,137,40,35,168,43.1,2.288,33,1),
+                            struct(5,116,74,0,0,25.6,0.201,30,0),
+                            struct(3,78,50,32,88,31.0,0.248,26,1),
+                            struct(10,115,0,0,0,35.3,0.134,29,0),
+                            struct(2,197,70,45,543,30.5,0.158,53,1)]) as rs
+
+
+spec.yaml binds the model.json to *pima* macro, which is expanded as
+an SQL subquery.  You can check it via dump command, producing SQL
+ready to be fed into a database. Dump command doesn't require access
+to BigQuery.
+
+    $ ./napkin-docker dump -s spec.yaml
+
+The query containing NN is located in file *./dump/napkin_devel.pima_positively_classified_by_dnn/1.sql*
+
+    SELECT *
+    FROM `dnn_dataset`.pima_observations AS pima_observations
+    WHERE ((SELECT
+              ARRAY_AGG((1 / (1 + EXP((0 - (((`w`[OFFSET(0)] + (`w`[OFFSET(1)] * `l1out`[OFFSET(0)])) + (`w`[OFFSET(2)] * `l1out`[OFFSET(1)])) + (`w`[OFFSET(3)] * `l1out`[OFFSET(2)]))))))) AS `nnOut`
+            FROM UNNEST([struct(-1.4292612075805664, 0.46713218092918396, 0.31342944502830505, 8.353928476572037e-2)]) AS `w`
+            CROSS JOIN (SELECT
+                          ARRAY_AGG(GREATEST(0,
+                                             (((((`w`[OFFSET(0)] + (`w`[OFFSET(1)] * `l0out`[OFFSET(0)])) + (`w`[OFFSET(2)] * `l0out`[OFFSET(1)])) + (`w`[OFFSET(3)] * `l0out`[OFFSET(2)])) + (`w`[OFFSET(4)] * `l0out`[OFFSET(3)])) + (`w`[OFFSET(5)] * `l0out`[OFFSET(4)])))) AS `l1out`
+                        FROM UNNEST([struct(-0.41208043694496155, 0.2061747908592224, -0.16841396689414978, 0.2145361751317978, 0.3863857090473175, 2.057105116546154e-2), struct(-0.8970054984092712, -0.11880557984113693, 0.4053782522678375, -1.4171559363603592e-2, -8.417066186666489e-2, -0.984534740447998), struct(-7.326607406139374e-2, 8.147265017032623e-2, -0.4211576282978058, 0.2435821145772934, -0.4402327537536621, 2.4828349705785513e-3)]) AS `w`
+                        CROSS JOIN (SELECT
+                                      ARRAY_AGG(GREATEST(0,
+                                                         ((((((((`w`[OFFSET(0)] + (`w`[OFFSET(1)] * pregnant)) + (`w`[OFFSET(2)] * glucose)) + (`w`[OFFSET(3)] * pressure)) + (`w`[OFFSET(4)] * skin)) + (`w`[OFFSET(5)] * insulin)) + (`w`[OFFSET(6)] * bmi)) + (`w`[OFFSET(7)] * pedigree)) + (`w`[OFFSET(8)] * age)))) AS `l0out`
+                                    FROM UNNEST([struct(0.11652952432632446, -0.1514103263616562, -0.2902229130268097, -0.25702202320098877, -0.30213668942451477, 0.15019038319587708, -8.555655926465988e-2, 0.2731674313545227, 2.377433329820633e-2), struct(-0.8223007917404175, 1.0374555587768555, 0.22740879654884338, -0.34332337975502014, 1.0697017423808575e-2, -8.385843830183148e-4, -1.5387434512376785e-2, 0.23497509956359863, 7.723002135753632e-2), struct(-0.12624654173851013, -0.3030771315097809, -0.21591763198375702, 0.26572340726852417, -0.23025500774383545, -0.15994291007518768, -0.2668708860874176, 3.350885212421417e-2, -0.33851397037506104), struct(0.2801574766635895, -0.3144024610519409, -0.21931664645671844, 8.408840000629425e-2, -3.6737680435180664e-2, -0.14777924120426178, -0.32633376121520996, -0.26817217469215393, 0.20330695807933807), struct(0.23825359344482422, 0.5980736613273621, -1.4002146199345589e-2, -0.255145400762558, -0.32139626145362854, -1.51359923183918e-2, -0.31143277883529663, 5.861988756805658e-4, 0.5181198120117188)]) AS `w`) AS `l1`) AS `l2`)[OFFSET(0)] > 0.5)
+
+
+Until NN is trained with *Double* weights, using BigQuey is less
+efficient, because there is no Float32 nor Float16 types. I hope the
+dot operator will appear in SQL dialects to make NN more practical approach.
+
+
+<daniil.iaitskov@soostone.com>

@@ -51,6 +51,11 @@ article .header {
   text-decoration: none;
 }
 
+pre {
+  overflow-x: scroll;
+  background: #eee;
+}
+
 @media (max-width: 319px) {
   body {
     width: 90%;
@@ -107,6 +112,10 @@ article .header {
     display: inline;
     margin: 0 0.6rem;
   }
+  pre {
+    padding: 3%;
+    border-radius: 10px;
+  }
 }
 
 @media (min-width: 640px) {
@@ -137,5 +146,14 @@ article .header {
   .logo a {
     float: left;
     font-size: 1.8rem;
+  }
+  pre {
+    margin-left: 8%;
+    background: #eee;
+    padding: 2%;
+    border-radius: 30px;
+  }
+  pre code {
+    font-size: 1rem;
   }
 }
