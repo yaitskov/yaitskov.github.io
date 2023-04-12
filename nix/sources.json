@@ -1,0 +1,12 @@
+{
+  "nixpkgs": {
+    "branch": "master",
+    "owner": "NixOS",
+    "repo": "nixpkgs",
+    "rev": "0662bd2b6945308a525180e01cad328648e6c928",
+    "sha256": "0x0ihj3xh6h60s7bsvxwbjwv67lkm5bl46z79yi8sddbx4ypy3yg",
+    "type": "tarball",
+    "url": "https://github.com/NixOS/nixpkgs/archive/0662bd2b6945308a525180e01cad328648e6c928.tar.gz",
+    "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+  }
+}
