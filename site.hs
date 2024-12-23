@@ -6,6 +6,9 @@ import           Hakyll
 config :: Configuration
 config = defaultConfiguration { destinationDirectory = "docs" }
 
+mdPostPattern :: Pattern
+mdPostPattern = "posts/*.md" .||. "posts/*.markdown"
+
 --------------------------------------------------------------------------------
 main :: IO ()
 main = hakyllWith config $ do
@@ -23,7 +26,7 @@ main = hakyllWith config $ do
             >>= loadAndApplyTemplate "templates/default.html" defaultContext
             >>= relativizeUrls
 
-    match "posts/*" $ do
+    match mdPostPattern $ do
         route $ setExtension "html"
         compile $ pandocCompiler
             >>= loadAndApplyTemplate "templates/post.html"    postCtx
@@ -48,7 +51,7 @@ main = hakyllWith config $ do
     match "index.html" $ do
         route idRoute
         compile $ do
-            posts <- recentFirst =<< loadAll "posts/*"
+            posts <- recentFirst =<< loadAll mdPostPattern
             let indexCtx =
                     listField "posts" postCtx (return posts) `mappend`
                     defaultContext
