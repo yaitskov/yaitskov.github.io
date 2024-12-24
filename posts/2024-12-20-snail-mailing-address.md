@@ -1,3 +1,6 @@
+---
+title: Snail mailing address
+---
 
 # Table of Contents
 
