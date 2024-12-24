@@ -14,7 +14,7 @@ the network effect[fn:3].
 Let's enumerate issues the mailing address system encounters today and
 draft a solution based on information technologies available.
 
-If you agree up on the issues below, please, sign the petition.
+If you agree up on the issues below, please, sign [[https://chng.it/6GhJ6jMFs8][the petition]].
 
 ** Personal mobility and relocation rate
 
@@ -86,7 +86,7 @@ extra dollars.
 
 Let's assume it would take 2 hours to update the address everywhere.
 
-Per capita income in the past 12 months in 2023: $43,289 [fn:7]
+Per capita income in the past 12 months in 2023: $43,289. [fn:7]
 There are 2080 working hours per year.
 So an average pay rate is $20 per hour.
 

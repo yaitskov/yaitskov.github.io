@@ -1,30 +1,27 @@
----
-title: Snail mailing address
----
 
 # Table of Contents
 
-1.  [Problem](#orgc5320a2)
-    1.  [Personal mobility and relocation rate](#org70d3578)
-    2.  [Keeping up to date efforts](#org2aa1907)
-    3.  [Personal experience](#orgff937c1)
-    4.  [Tax and budget](#orgddb9f74)
-    5.  [Privacy and phishing](#orgbff3794)
-    6.  [Spam](#orgd2406d9)
-    7.  [Address input validation](#org732997f)
-    8.  [Ecology and Global warming](#orge5fc54a)
-    9.  [Desuetude](#org611013e)
-2.  [Design Draft](#orga65a94b)
-    1.  [Postal Address (PA)](#orged28120)
-    2.  [Address Alias (AA)](#org5f75534)
-    3.  [PMAA REST API](#orge220587)
-    4.  [Gradual implementation](#orgd879e86)
+1.  [Problem](#orge56de3b)
+    1.  [Personal mobility and relocation rate](#orge413ce8)
+    2.  [Keeping up to date efforts](#org442f65d)
+    3.  [Personal experience](#org8d1fe4c)
+    4.  [Tax and budget](#org2b23566)
+    5.  [Privacy and phishing](#orgd26f164)
+    6.  [Spam](#orga3d0485)
+    7.  [Address input validation](#org92b64a0)
+    8.  [Ecology and Global warming](#org1ee8855)
+    9.  [Desuetude](#orgc3334bb)
+2.  [Design Draft](#org4bb9629)
+    1.  [Postal Address (PA)](#org6ca5d48)
+    2.  [Address Alias (AA)](#orgbedb233)
+    3.  [PMAA REST API](#orgc39f670)
+    4.  [Gradual implementation](#orgb81e0fd)
 
 The article presents an alternative mailing address - Permanent
 Mailing Address Alias (PMAA).
 
 
-<a id="orgc5320a2"></a>
+<a id="orge56de3b"></a>
 
 # Problem
 
@@ -36,10 +33,10 @@ the network effect<sup><a id="fnr.3" class="footref" href="#fn.3" role="doc-back
 Let's enumerate issues the mailing address system encounters today and
 draft a solution based on information technologies available.
 
-If you agree up on the issues below, please, sign the petition.
+If you agree up on the issues below, please, sign [the petition](https://chng.it/6GhJ6jMFs8).
 
 
-<a id="org70d3578"></a>
+<a id="orge413ce8"></a>
 
 ## Personal mobility and relocation rate
 
@@ -52,7 +49,7 @@ Overall 40 million people changed their addresses in 2023 in the
 US. <sup><a id="fnr.5" class="footref" href="#fn.5" role="doc-backlink">5</a></sup>
 
 
-<a id="org2aa1907"></a>
+<a id="org442f65d"></a>
 
 ## Keeping up to date efforts
 
@@ -104,7 +101,7 @@ applicable for bank accounts or DL, and the PO box user has to trust
 somebody with unsealing envelopes and scanning letters.
 
 
-<a id="orgff937c1"></a>
+<a id="org8d1fe4c"></a>
 
 ## Personal experience
 
@@ -114,7 +111,7 @@ states, I confirm that the situation is unsatisfactory and requires
 serious revision taking advantage of new technologies.
 
 
-<a id="orgddb9f74"></a>
+<a id="org2b23566"></a>
 
 ## Tax and budget
 
@@ -123,7 +120,7 @@ extra dollars.
 
 Let's assume it would take 2 hours to update the address everywhere.
 
-Per capita income in the past 12 months in 2023: $43,289 <sup><a id="fnr.7" class="footref" href="#fn.7" role="doc-backlink">7</a></sup>
+Per capita income in the past 12 months in 2023: $43,289. <sup><a id="fnr.7" class="footref" href="#fn.7" role="doc-backlink">7</a></sup>
 There are 2080 working hours per year.
 So an average pay rate is $20 per hour.
 
@@ -140,7 +137,7 @@ Therefore the federal budget could get **extra $232 million** per annum,
 meanwhile US debt maximum systematically increases<sup><a id="fnr.9" class="footref" href="#fn.9" role="doc-backlink">9</a></sup>.
 
 
-<a id="orgbff3794"></a>
+<a id="orgd26f164"></a>
 
 ## Privacy and phishing<sup><a id="fnr.10" class="footref" href="#fn.10" role="doc-backlink">10</a></sup>
 
@@ -150,12 +147,12 @@ data breaches in 2023 in the US.<sup><a id="fnr.11" class="footref" href="#fn.11
 
 Mail address is indivisible from geo location.
 
-Autobinding [AA](#org33908ab) cannot be used by more than one sender. It means that
+Autobinding [AA](#org99906cf) cannot be used by more than one sender. It means that
 AA leaked from an organization cannot be used for spamming or phishing
 by somebody else.
 
 
-<a id="orgd2406d9"></a>
+<a id="orga3d0485"></a>
 
 ## Spam
 
@@ -171,7 +168,7 @@ periodically.
 Dedicated AA can be invalidated and cannot be used after that.
 
 
-<a id="org732997f"></a>
+<a id="org92b64a0"></a>
 
 ## Address input validation
 
@@ -187,7 +184,7 @@ but it is not exposed. So the previous requirement is fulfilled
 automatically.
 
 
-<a id="orge5fc54a"></a>
+<a id="org1ee8855"></a>
 
 ## Ecology and Global warming
 
@@ -214,7 +211,7 @@ correspondence, because it is easier just to recycle such junk mail.
 PMAA should help with breaking this vicious cycle.
 
 
-<a id="org611013e"></a>
+<a id="orgc3334bb"></a>
 
 ## Desuetude
 
@@ -228,20 +225,20 @@ of the place of address) is not enforced in practice:
 > upon identification of the person so addressed.
 
 
-<a id="orga65a94b"></a>
+<a id="org4bb9629"></a>
 
 # Design Draft
 
 The best solution for minimizing efforts related to changing the
-postal address is to use permanent address alias ([AA](#org33908ab)), which
+postal address is to use permanent address alias ([AA](#org99906cf)), which
 identifies the recipient in a unique way, which is resolved to a regular
-or military address every time up on shipping. Immutability of the [AA](#org33908ab)
+or military address every time up on shipping. Immutability of the [AA](#org99906cf)
 is provided through its geo independence.
 
-While a US person or a business may issue any number of [AA](#org33908ab)s all AAs are
-always resolved to the same postal address ([PA](#orgda027a3)).
+While a US person or a business may issue any number of [AA](#org99906cf)s all AAs are
+always resolved to the same postal address ([PA](#org3ef986b)).
 
-These days [PA](#orgda027a3) on an envelope is written mostly for convenience,
+These days [PA](#org3ef986b) on an envelope is written mostly for convenience,
 because the envelope, before being shipped, is labeled by a unique
 barcode and the actual address is stored in the central database,
 which guides sorting robots to provide correct routing.
@@ -250,28 +247,28 @@ So the AA should not contain the literal PA of destination and
 infrastructure for PMAA implementation already exists.
 
 
-<a id="orged28120"></a>
+<a id="org6ca5d48"></a>
 
 ## Postal Address (PA)
 
-<a id="orgda027a3"></a>
+<a id="org3ef986b"></a>
 
 PA is exposed to authorized shipping companies only (e.g. USPS, FedEx, DHL
-etc.) by resolution via [AA](#org33908ab) and recipient name.
+etc.) by resolution via [AA](#org99906cf) and recipient name.
 
-Delivery just by [PA](#orgda027a3) can be disabled to prevent spam.
+Delivery just by [PA](#org3ef986b) can be disabled to prevent spam.
 
 Just a single PA can be bound to SSN or a foreign passport in case of an
 immigrant.
 
 
-<a id="org5f75534"></a>
+<a id="orgbedb233"></a>
 
 ## Address Alias (AA)
 
-<a id="org33908ab"></a>
+<a id="org99906cf"></a>
 
-[PA](#orgda027a3) can be bound to any number of AAs.  Ideally every time a person
+[PA](#org3ef986b) can be bound to any number of AAs.  Ideally every time a person
 needs to fill a form containing a postal address an new AA might be
 issued by the system. AA dedicated to a specific sender closes the
 problem of leaks.
@@ -293,7 +290,7 @@ REST API should serve requests for getting current PA zip code by AA.
 Unit number may be optional and serve as a Luhn-like hash of rest AA
 fields.
 
-AA maps itself onto PA in a unique way. [PA](#orgda027a3) cannot be guessed by AA and
+AA maps itself onto PA in a unique way. [PA](#org3ef986b) cannot be guessed by AA and
 one AA cannot be guessed by another AA.
 
 AA can be bound to a specific sender (based on who used it first).
@@ -306,25 +303,25 @@ from one system would not match AA in another place and using a
 mismatching address can trigger a stronger security check.
 
 
-<a id="orge220587"></a>
+<a id="orgc39f670"></a>
 
 ## PMAA REST API
 
 AA is useless without the PMAA database. REST API gives granular
 access to all parties. PMAA deals only with address translation.
 
-1.  Check [AA](#org33908ab) is valid (for reusable non autobinding AA).
-2.  Bind [AA](#org33908ab) to sender's AA (atomic).
-3.  Chech [AA](#org33908ab) is bound to a sender.
-4.  Get zip code and timestamp when PA was updated by providing [AA](#org33908ab) and person
+1.  Check [AA](#org99906cf) is valid (for reusable non autobinding AA).
+2.  Bind [AA](#org99906cf) to sender's AA (atomic).
+3.  Chech [AA](#org99906cf) is bound to a sender.
+4.  Get zip code and timestamp when PA was updated by providing [AA](#org99906cf) and person
     Name. (e.g. DMV - proof of residence)
-5.  Subscribe for email notification about invalidated [AA](#org33908ab) or zip code
+5.  Subscribe for email notification about invalidated [AA](#org99906cf) or zip code
     or person name change (recalculate quote, invalidate DL).
-6.  Issue [AA](#org33908ab).
-7.  Invalidate [AA](#org33908ab).
+6.  Issue [AA](#org99906cf).
+7.  Invalidate [AA](#org99906cf).
 8.  Register an account for a person or business.
-9.  Submit a request for changing [PA](#orgda027a3).
-10. Confirm new [PA](#orgda027a3) by a one-time code from a PMAA letter.
+9.  Submit a request for changing [PA](#org3ef986b).
+10. Confirm new [PA](#org3ef986b) by a one-time code from a PMAA letter.
 11. List senders used the specified AA.
 12. List all AAs bound to the specified PA.
 13. Can a sender (identified by PA) send to the specified AA.
@@ -335,7 +332,7 @@ access to all parties. PMAA deals only with address translation.
     recipient's PA.
 
 
-<a id="orgd879e86"></a>
+<a id="orgb81e0fd"></a>
 
 ## Gradual implementation
 
