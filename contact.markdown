@@ -8,3 +8,5 @@ You could reach me through
 [GitHub](https://github.com/yaitskov)
 
 [LinkedIn](https://www.linkedin.com/in/dyaitskov/)
+
+[Instagram](https://www.instagram.com/shutterrecoil/)
