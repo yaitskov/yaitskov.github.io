@@ -50,9 +50,9 @@ block content in a mode proper for assisting writing source code
 
 ### sort footnotes
 
-`C-c C-x s`
+`C-c C-x f s`
 
 
 ### renumber footnotes after the cursor
 
-`C-c C-x r`
+`C-c C-x f r`
