@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-CBWXWH01ZL"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-CBWXWH01ZL');
+        </script>
+
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Snail Mailing address</title>
+        <link rel="stylesheet" href="../css/default.css" />
+    </head>
+    <body>
+        <header>
+            <div class="logo">
+                <a href="../">Daniil Iaitskov Blog</a>
+            </div>
+            <nav>
+              <a href="../index.html">Home</a>
+              <a href="../about.html">About</a>
+              <a href="../contact.html">Contact</a>
+            </nav>
+        </header>
+
+        <main role="main">
+            <h1>Snail Mailing address</h1>
+            <article>
+    <section class="header">
+        Posted on December 20, 2024
+        
+    </section>
+    <section>
+        <p>The article presents an alternative mailing address - Permanent
+Mailing Address Alias (Pmaa).</p>
+<h3 id="table-of-contents">Table of Contents</h3>
+<ol type="1">
+<li><a href="#org9102bb7">Problem</a>
+<ol type="1">
+<li><a href="#orgea98fce">Personal mobility and relocation rate</a></li>
+<li><a href="#org7683026">Keeping up to date efforts</a></li>
+<li><a href="#org943627f">Personal experience</a></li>
+<li><a href="#org6f85c0d">Tax and budget</a></li>
+<li><a href="#orgf9e856e">Privacy and phishing</a></li>
+<li><a href="#org2c9a743">Spam</a></li>
+<li><a href="#orga9e7787">Address input validation</a></li>
+<li><a href="#orgd318b2b">Ecology and Global warming</a></li>
+<li><a href="#orgcb821b9">Desuetude</a></li>
+</ol></li>
+<li><a href="#org29e2dff">Design Draft</a>
+<ol type="1">
+<li><a href="#org07625c5">Postal Address (PA)</a></li>
+<li><a href="#orgc68d73b">Address Alias (AA)</a></li>
+<li><a href="#orgeae01ee">PMAA REST API</a></li>
+<li><a href="#orgd35dc22">Gradual implementation</a></li>
+</ol></li>
+</ol>
+<p><a id="org9102bb7"></a></p>
+<h1 id="problem">Problem</h1>
+<p>The postal address system predates 3rd Industrial Revolution<sup><a id="fnr.1" class="footref" href="#fn.1" role="doc-backlink">1</a></sup> and
+the design overlooks capabilities appeared later with modern
+technologies, but it is still in use due to social inertia<sup><a id="fnr.2" class="footref" href="#fn.2" role="doc-backlink">2</a></sup> and
+the network effect<sup><a id="fnr.3" class="footref" href="#fn.3" role="doc-backlink">3</a></sup>.</p>
+<p>Let’s enumerate issues the mailing address system encounters today and
+draft a solution based on information technologies available.</p>
+<p>If you agree up on the issues below, please, sign <a href="https://chng.it/6GhJ6jMFs8">the petition</a>.</p>
+<p><a id="orgea98fce"></a></p>
+<h2 id="personal-mobility-and-relocation-rate">Personal mobility and relocation rate</h2>
+<p>The number of state-to-state movers rose from 7.9 million in 2021 to
+8.2 million in 2022. This shows a decade-long trend of state-to-state
+migration, which is expected to continue to increase even as overall
+migration numbers decline.<sup><a id="fnr.4" class="footref" href="#fn.4" role="doc-backlink">4</a></sup></p>
+<p>Overall 40 million people changed their addresses in 2023 in the
+US. <sup><a id="fnr.5" class="footref" href="#fn.5" role="doc-backlink">5</a></sup></p>
+<p><a id="org7683026"></a></p>
+<h2 id="keeping-up-to-date-efforts">Keeping up to date efforts</h2>
+<p>When a person moves, he/she should update his/her
+address in a few dozen systems:</p>
+<ol type="1">
+<li>employer/university/school/military</li>
+<li>driver license</li>
+<li>vehicle registration</li>
+<li>voter registration</li>
+<li>IRS</li>
+<li>5.3 bank accounts on average<sup><a id="fnr.6" class="footref" href="#fn.6" role="doc-backlink">6</a></sup></li>
+<li>dozens of shops (amazon, ebay, walmart, etc.)</li>
+<li>car insurance</li>
+<li>health insurance</li>
+<li>USPS forwarding</li>
+<li>mobile operator</li>
+<li>CCW</li>
+<li>internet provider (at least terminate contract automatically if
+new address is out of range)</li>
+</ol>
+<p>How much time would it take to sync the address across all these
+systems?!</p>
+<p>Many places have a web interface and/or a mobile app, but anyway the
+process is very routine and error prone. Recall all these security
+questions you need to answer and one-time codes to provide… Nobody
+wants to waste time on this.</p>
+<p>Moreover, the IRS allows you to change the address through a paper mail
+only. Mail to the IRS can be delivered exclusively by USPS and USPS
+locations don’t provide a print service. So the mover has to plan a whole
+operation to complete the task!</p>
+<p>USPS provides an option for mail forwarding but it is a half-measure.</p>
+<p>Military mailing address has a common trait with the proposed design
+(mail follows the soldiers whenever they are), but such address also
+has limited scope and is not available for civilians.</p>
+<p>It is worth to note that the Oath of Allegiance expects from a
+swearing person to bear arms on behalf of the US if required by the
+law. So the person in some way connected to the military service.
+This fact promotes the idea of extending military mailing address
+style to all citizens.</p>
+<p>A PO box with a web interface is a great tool, but it is not
+applicable for bank accounts or DL, and the PO box user has to trust
+somebody with unsealing envelopes and scanning letters.</p>
+<p><a id="org943627f"></a></p>
+<h2 id="personal-experience">Personal experience</h2>
+<p>The article contains a lot of statistical references, but as the
+author, who is an experienced software engineer and who lived in 4
+states, I confirm that the situation is unsatisfactory and requires
+serious revision taking advantage of new technologies.</p>
+<p><a id="org6f85c0d"></a></p>
+<h2 id="tax-and-budget">Tax and budget</h2>
+<p>The time required for handling papers could be used for fun or earning
+extra dollars.</p>
+<p>Let’s assume it would take 2 hours to update the address everywhere.</p>
+<p>Per capita income in the past 12 months in 2023: $43,289. <sup><a id="fnr.7" class="footref" href="#fn.7" role="doc-backlink">7</a></sup>
+There are 2080 working hours per year.
+So an average pay rate is $20 per hour.</p>
+<p><span class="math display">2<em>h</em> * 4<em>E</em>7 * $20 = $1.6<em>E</em>9</span></p>
+<p>The US economy is missing out <strong>$1.6 billion</strong> annually, because people
+are busy with keeping their mail addresses up to date.</p>
+<p>Average federal income tax rate is 14.5% in 2022.<sup><a id="fnr.8" class="footref" href="#fn.8" role="doc-backlink">8</a></sup></p>
+<p><span class="math display">0.145 * $1.6<em>E</em>9 = $232<em>E</em>6</span></p>
+<p>Therefore the federal budget could get <strong>extra $232 million</strong> per annum,
+meanwhile US debt maximum systematically increases<sup><a id="fnr.9" class="footref" href="#fn.9" role="doc-backlink">9</a></sup>.</p>
+<p><a id="orgf9e856e"></a></p>
+<h2 id="privacy-and-phishing10">Privacy and phishing<sup><a id="fnr.10" class="footref" href="#fn.10" role="doc-backlink">10</a></sup></h2>
+<p>A mail address stored in a database poses a threat for privacy similar
+to phone number or email address. 353 million of accounts leaked due
+data breaches in 2023 in the US.<sup><a id="fnr.11" class="footref" href="#fn.11" role="doc-backlink">11</a></sup></p>
+<p>Mail address is indivisible from geo location.</p>
+<p>Autobinding <a href="#orgd0a9940">AA</a> cannot be used by more than one sender. It means that
+AA leaked from an organization cannot be used for spamming or phishing
+by somebody else.</p>
+<p><a id="org2c9a743"></a></p>
+<h2 id="spam">Spam</h2>
+<p>A mail address is vulnerable to massive spam delivery without even
+mentioning a particular recipient by name.</p>
+<p>A person in PMAA should be able to disable delivery of mails
+addressed by postal address directly.</p>
+<p>Businesses, you finished working with, tend to mail reminder letters
+periodically.</p>
+<p>Dedicated AA can be invalidated and cannot be used after that.</p>
+<p><a id="orga9e7787"></a></p>
+<h2 id="address-input-validation">Address input validation</h2>
+<p>Credit card number has a special encoding preventing a single typo in
+any digit.<sup><a id="fnr.12" class="footref" href="#fn.12" role="doc-backlink">12</a></sup> Regular mail address doesn’t have anything like that.
+Zip code cannot catch a typo in an apartment or building number.</p>
+<p>Organizations such as DMV have extra requirements to the address
+person provides. They want to prove that the person lives there.</p>
+<p>A person in PMAA can have only 1 postal address at any given time,
+but it is not exposed. So the previous requirement is fulfilled
+automatically.</p>
+<p><a id="orgd318b2b"></a></p>
+<h2 id="ecology-and-global-warming">Ecology and Global warming</h2>
+<p>I rented an apartment in Miami next to a beach. My mailbox was
+getting full of junk every week addressed to previous dwellers!
+I assume it is a common pattern for places with high tenant turnover.</p>
+<p>Imagine how much paper and labor is wasted for letters, for which it
+is known in advance that they will not be read.</p>
+<p>20g <span class="math inline"><em>C</em><em>O</em><sub>2</sub></span> is produced per letter<sup><a id="fnr.13" class="footref" href="#fn.13" role="doc-backlink">13</a></sup></p>
+<p><span class="math display">20<em>g</em> * 5 <em>l</em><em>e</em><em>t</em><em>t</em><em>e</em><em>r</em> <em>a</em> <em>w</em><em>e</em><em>e</em><em>k</em> * 52 <em>w</em><em>e</em><em>e</em><em>k</em> <em>a</em> <em>y</em><em>e</em><em>a</em><em>r</em> = 5.2<em>k</em><em>g</em> <em>C</em><em>O</em><sub>2</sub></span></p>
+<p>It is an equivalent of 12.92 lb of <span class="math inline"><em>C</em><em>O</em><sub>2</sub></span> per annum per apartment.</p>
+<p>Such a situation happens because USPS forwarding eventually expires,
+but the addressee is not interested anymore in updating the address
+everywhere it is mentioned.</p>
+<p>A new tenant usually is also reluctant to stop the sender from future
+correspondence, because it is easier just to recycle such junk mail.</p>
+<p>PMAA should help with breaking this vicious cycle.</p>
+<p><a id="orgcb821b9"></a></p>
+<h2 id="desuetude">Desuetude</h2>
+<p>U.S. Code section 39 §3004<sup><a id="fnr.14" class="footref" href="#fn.14" role="doc-backlink">14</a></sup> (Delivery of mail to persons not residents
+of the place of address) is not enforced in practice:</p>
+<blockquote>
+<p>Whenever the Postal Service determines that letters or parcels sent in
+the mail are addressed to places not the residence or regular business
+address of the person for whom they are intended, to enable the person
+to escape identification, the Postal Service may deliver the mail only
+upon identification of the person so addressed.</p>
+</blockquote>
+<p><a id="org29e2dff"></a></p>
+<h1 id="design-draft">Design Draft</h1>
+<p>The best solution for minimizing efforts related to changing the
+postal address is to use permanent address alias (<a href="#orgd0a9940">AA</a>), which
+identifies the recipient in a unique way, which is resolved to a regular
+or military address every time up on shipping. Immutability of the <a href="#orgd0a9940">AA</a>
+is provided through its geo independence.</p>
+<p>While a US person or a business may issue any number of <a href="#orgd0a9940">AA</a>s all AAs are
+always resolved to the same postal address (<a href="#orgabd866b">PA</a>).</p>
+<p>These days <a href="#orgabd866b">PA</a> on an envelope is written mostly for convenience,
+because the envelope, before being shipped, is labeled by a unique
+barcode and the actual address is stored in the central database,
+which guides sorting robots to provide correct routing.</p>
+<p>So the AA should not contain the literal PA of destination and
+infrastructure for PMAA implementation already exists.</p>
+<p><a id="org07625c5"></a></p>
+<h2 id="postal-address-pa">Postal Address (PA)</h2>
+<p><a id="orgabd866b"></a></p>
+<p>PA is exposed to authorized shipping companies only (e.g. USPS, FedEx, DHL
+etc.) by resolution via <a href="#orgd0a9940">AA</a> and recipient name.</p>
+<p>Delivery just by <a href="#orgabd866b">PA</a> can be disabled to prevent spam.</p>
+<p>Just a single PA can be bound to SSN or a foreign passport in case of an
+immigrant.</p>
+<p><a id="orgc68d73b"></a></p>
+<h2 id="address-alias-aa">Address Alias (AA)</h2>
+<p><a id="orgd0a9940"></a></p>
+<p><a href="#orgabd866b">PA</a> can be bound to any number of AAs. Ideally every time a person
+needs to fill a form containing a postal address an new AA might be
+issued by the system. AA dedicated to a specific sender closes the
+problem of leaks.</p>
+<p>AA format can be the same as PA to minimize efforts with updating
+existing forms and database schemes.</p>
+<p>It is enough to introduce a special zip code and city to intercept
+default routing.</p>
+<p>Let every state to pick a name and zip code for a virtual city
+(e.g. Pmaa 99999) covering all address aliases. AA state may not be
+equal to the real state form PA, but AA state inherits PA state at
+the moment of issuing AA.</p>
+<p>PA is used for sales tax calculation by online retailer stores. PMAA
+REST API should serve requests for getting current PA zip code by AA.</p>
+<p>Unit number may be optional and serve as a Luhn-like hash of rest AA
+fields.</p>
+<p>AA maps itself onto PA in a unique way. <a href="#orgabd866b">PA</a> cannot be guessed by AA and
+one AA cannot be guessed by another AA.</p>
+<p>AA can be bound to a specific sender (based on who used it first).
+This way dedicated AA solves problems with privacy, leaks and phishing,
+because even if AA leaks due a data breach AA cannot be used outside
+of the organization it is bound to.</p>
+<p>Having multiple AAs mitigates risk of identity theft - a leaked AA
+from one system would not match AA in another place and using a
+mismatching address can trigger a stronger security check.</p>
+<p><a id="orgeae01ee"></a></p>
+<h2 id="pmaa-rest-api">PMAA REST API</h2>
+<p>AA is useless without the PMAA database. REST API gives granular
+access to all parties. PMAA deals only with address translation.</p>
+<ol type="1">
+<li>Check <a href="#orgd0a9940">AA</a> is valid (for reusable non autobinding AA).</li>
+<li>Bind <a href="#orgd0a9940">AA</a> to sender’s AA (atomic).</li>
+<li>Chech <a href="#orgd0a9940">AA</a> is bound to a sender.</li>
+<li>Get zip code and timestamp when PA was updated by providing <a href="#orgd0a9940">AA</a> and person
+Name. (e.g. DMV - proof of residence)</li>
+<li>Subscribe for email notification about invalidated <a href="#orgd0a9940">AA</a> or zip code
+or person name change (recalculate quote, invalidate DL).</li>
+<li>Issue <a href="#orgd0a9940">AA</a>.</li>
+<li>Invalidate <a href="#orgd0a9940">AA</a>.</li>
+<li>Register an account for a person or business.</li>
+<li>Submit a request for changing <a href="#orgabd866b">PA</a>.</li>
+<li>Confirm new <a href="#orgabd866b">PA</a> by a one-time code from a PMAA letter.</li>
+<li>List senders used the specified AA.</li>
+<li>List all AAs bound to the specified PA.</li>
+<li>Can a sender (identified by PA) send to the specified AA.</li>
+<li>Give the current zip code for AA for calculation of sales tax or LatLong
+near the specified AA where the LatLong coordinate and the
+associated PA have the same sales tax rules.</li>
+<li>Try to resolve AA, a recipient name and sender’s AA into the
+recipient’s PA.</li>
+</ol>
+<p><a id="orgd35dc22"></a></p>
+<h2 id="gradual-implementation">Gradual implementation</h2>
+<p>PMAA can be deployed gradually in parallel with existing addressing
+approaches.</p>
+<h1 id="footnotes">Footnotes</h1>
+<p><sup><a id="fn.1" href="#fnr.1">1</a></sup> <a href="https://en.wikipedia.org/wiki/Information_Age" class="uri">https://en.wikipedia.org/wiki/Information_Age</a></p>
+<p><sup><a id="fn.2" href="#fnr.2">2</a></sup> Clements, M.T. (2005). “Inefficient Standard Adoption: Inertia and Momentum Revisited”. Economic Inquiry. 43 (3): 507–518. https://doi.org/10.1093/ei/cbi034</p>
+<p><sup><a id="fn.3" href="#fnr.3">3</a></sup> Liebowitz, S.J.; S.E. Margolis (1994). “Network Externality: An Uncommon Tragedy”. The Journal of Economic Perspectives. 8 (2): 133–150. https://doi.org/10.1257/jep.8.2.133</p>
+<p><sup><a id="fn.4" href="#fnr.4">4</a></sup> <a href="https://www.census.gov/library/stories/2023/11/state-to-state-migration.html" class="uri">https://www.census.gov/library/stories/2023/11/state-to-state-migration.html</a></p>
+<p><sup><a id="fn.5" href="#fnr.5">5</a></sup> <a href="https://www2.census.gov/programs-surveys/demo/tables/geographic-mobility/2023/state-to-state-migration/State_to_State_Migration_Table_2023_T13.xlsx" class="uri">https://www2.census.gov/programs-surveys/demo/tables/geographic-mobility/2023/state-to-state-migration/State_to_State_Migration_Table_2023_T13.xlsx</a></p>
+<p><sup><a id="fn.6" href="#fnr.6">6</a></sup> <a href="https://www.paymentsjournal.com/how-many-bank-accounts-do-consumers-have/" class="uri">https://www.paymentsjournal.com/how-many-bank-accounts-do-consumers-have/</a></p>
+<p><sup><a id="fn.7" href="#fnr.7">7</a></sup> <a href="https://www.census.gov/quickfacts/fact/table/US/INC910223#INC910223" class="uri">https://www.census.gov/quickfacts/fact/table/US/INC910223#INC910223</a></p>
+<p><sup><a id="fn.8" href="#fnr.8">8</a></sup> <a href="https://taxfoundation.org/data/all/federal/latest-federal-income-tax-data-2025/" class="uri">https://taxfoundation.org/data/all/federal/latest-federal-income-tax-data-2025/</a></p>
+<p><sup><a id="fn.9" href="#fnr.9">9</a></sup> <a href="https://en.wikipedia.org/wiki/United_States_debt_ceiling" class="uri">https://en.wikipedia.org/wiki/United_States_debt_ceiling</a></p>
+<p><sup><a id="fn.10" href="#fnr.10">10</a></sup> <a href="https://en.wikipedia.org/wiki/Phishing" class="uri">https://en.wikipedia.org/wiki/Phishing</a></p>
+<p><sup><a id="fn.11" href="#fnr.11">11</a></sup> <a href="https://www.statista.com/statistics/273550/data-breaches-recorded-in-the-united-states-by-number-of-breaches-and-records-exposed/" class="uri">https://www.statista.com/statistics/273550/data-breaches-recorded-in-the-united-states-by-number-of-breaches-and-records-exposed/</a></p>
+<p><sup><a id="fn.12" href="#fnr.12">12</a></sup> <a href="https://en.wikipedia.org/wiki/Luhn_algorithm" class="uri">https://en.wikipedia.org/wiki/Luhn_algorithm</a></p>
+<p><sup><a id="fn.13" href="#fnr.13">13</a></sup> <a href="https://www.fortomorrow.eu/en/blog/carbon-email" class="uri">https://www.fortomorrow.eu/en/blog/carbon-email</a></p>
+<p><sup><a id="fn.14" href="#fnr.14">14</a></sup> <a href="https://uscode.house.gov/view.xhtml?path=/prelim@title39/part4/chapter30&amp;edition=prelim" class="uri">https://uscode.house.gov/view.xhtml?path=/prelim@title39/part4/chapter30&amp;edition=prelim</a></p>
+    </section>
+</article>
+
+        </main>
+
+        <footer>
+            <a href="http://jaspervdj.be/hakyll">Hakyll</a>
+        </footer>
+    </body>
+</html>
